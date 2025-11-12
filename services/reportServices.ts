@@ -1,4 +1,3 @@
-
 import { MOCK_REPORTS, Report } from '../data/mockReports';
 
 /**
@@ -10,7 +9,6 @@ import { MOCK_REPORTS, Report } from '../data/mockReports';
  * - Implement authentication tokens if needed
  * - Add retry logic for failed requests
  */
-
 
 export interface PaginationResult<T> {
   data: T[];
@@ -26,11 +24,33 @@ export interface ReportFilters {
   status?: string;
   page?: number;
   limit?: number;
-  simulateOffline?: boolean;   // Para pruebas sin conexión
-  simulateEmpty?: boolean;     // Para pruebas sin datos
+  simulateOffline?: boolean;
+  simulateEmpty?: boolean;
 }
 
+// Interface para filtros geográficos
+export interface GeographicBounds {
+  northEast: {
+    latitude: number;
+    longitude: number;
+  };
+  southWest: {
+    latitude: number;
+    longitude: number;
+  };
+}
 
+// ✅ ACTUALIZADA: Ahora con paginación
+export interface AreaReportFilters {
+  bounds: GeographicBounds;
+  category?: string;
+  status?: string;
+  timeRange?: '24h' | '7d' | '30d';
+  page?: number;           // ✅ NUEVO
+  limit?: number;          // ✅ NUEVO
+  simulateOffline?: boolean;
+  simulateEmpty?: boolean;
+}
 
 export const ReportService = {
   /**
@@ -46,7 +66,6 @@ export const ReportService = {
       setTimeout(() => {
         let reports = [...MOCK_REPORTS];
         
-        // Apply filters if provided
         if (filters?.category) {
           reports = reports.filter(r => r.category === filters.category);
         }
@@ -55,12 +74,8 @@ export const ReportService = {
         }
         
         resolve(reports);
-      }, 500); // Simulate network delay
+      }, 500);
     });
-    
-    // TODO: Replace with real API call:
-    // const response = await fetch(`${API_BASE_URL}/reports?${queryParams}`);
-    // return response.json();
   },
 
   /**
@@ -75,10 +90,6 @@ export const ReportService = {
         resolve(report);
       }, 300);
     });
-    
-    // TODO: Replace with real API call:
-    // const response = await fetch(`${API_BASE_URL}/reports/${id}`);
-    // return response.json();
   },
 
   /**
@@ -93,7 +104,6 @@ export const ReportService = {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
 
-        // 🔴 Simular sin conexión
         if (filters?.simulateOffline) {
           return reject({
             message: "No hay conexión a internet.",
@@ -101,17 +111,14 @@ export const ReportService = {
           });
         }
 
-        // Valores por defecto
         const page = filters?.page ?? 1;
-        const limit = filters?.limit ?? 1; // 1 por página como pediste
+        const limit = filters?.limit ?? 1;
         let reports = [...MOCK_REPORTS];
 
-        // 🔵 Simular sin datos
         if (filters?.simulateEmpty) {
           reports = [];
         }
 
-        // Aplicar filtros
         if (filters?.category) {
           reports = reports.filter(r => r.category === filters.category);
         }
@@ -119,7 +126,6 @@ export const ReportService = {
           reports = reports.filter(r => r.status === filters.status);
         }
 
-        // Validación sin resultados
         if (reports.length === 0) {
           return resolve({
             data: [],
@@ -131,7 +137,6 @@ export const ReportService = {
           });
         }
 
-        // Paginación manual
         const startIndex = (page - 1) * limit;
         const endIndex = startIndex + limit;
         const paginatedData = reports.slice(startIndex, endIndex);
@@ -149,10 +154,91 @@ export const ReportService = {
           hasMore
         });
 
-      }, 800); // Simula delay realista
+      }, 800);
     });
   },
 
+  /**
+   * ✅ ACTUALIZADO: Fetch reports within a geographic area (SIN paginación)
+   * 
+   * Usa este método cuando necesites TODOS los reportes del área
+   * (por ejemplo, para generar mapas de calor o estadísticas completas)
+   * 
+   * @future API endpoint: POST /api/reports/by-area
+   */
+  getReportsByArea: async (
+    filters: AreaReportFilters
+  ): Promise<Report[]> => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        
+        if (filters.simulateOffline) {
+          return reject({
+            message: "No hay conexión a internet.",
+            code: "OFFLINE"
+          });
+        }
 
+        let reports = [...MOCK_REPORTS];
+
+        if (filters.simulateEmpty) {
+          return resolve([]);
+        }
+
+        // 1️⃣ Filtrar por área geográfica
+        const { northEast, southWest } = filters.bounds;
+        
+        reports = reports.filter(report => {
+          const lat = report.coordinates.latitude;
+          const lng = report.coordinates.longitude;
+          
+          return (
+            lat <= northEast.latitude &&
+            lat >= southWest.latitude &&
+            lng <= northEast.longitude &&
+            lng >= southWest.longitude
+          );
+        });
+
+        // 2️⃣ Filtrar por categoría
+        if (filters.category) {
+          reports = reports.filter(r => r.category === filters.category);
+        }
+
+        // 3️⃣ Filtrar por estado
+        if (filters.status) {
+          reports = reports.filter(r => r.status === filters.status);
+        }
+
+        // 4️⃣ Filtrar por rango de tiempo
+        if (filters.timeRange) {
+          const now = Date.now();
+          let maxAge = 0;
+
+          switch (filters.timeRange) {
+            case '24h':
+              maxAge = 24 * 60 * 60 * 1000;
+              break;
+            case '7d':
+              maxAge = 7 * 24 * 60 * 60 * 1000;
+              break;
+            case '30d':
+              maxAge = 30 * 24 * 60 * 60 * 1000;
+              break;
+          }
+
+          reports = reports.filter(report => {
+            const reportAge = now - report.reportedAtTimestamp;
+            return reportAge <= maxAge;
+          });
+        }
+
+        resolve(reports);
+
+        console.log("Hola")
+
+      }, 600);
+    });
+  },
 
 };
