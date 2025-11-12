@@ -3,13 +3,49 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Report } from '../data/mockReports';
 import { CategoryBadge } from './CategoryBadge';
 import { StatusBadge } from './StatusBadge';
+import { calculateDistance, formatDistance } from '@/utils/locationUtils'; // ajusta el path si cambia
+import { useLocation } from '@/hooks/useLocation';
 
 interface ReportCardProps {
   report: Report;
   onPress: () => void;
+  userLocation?: { latitude: number; longitude: number } | null;
 }
 
+
+/**
+ * Convierte un timestamp en texto legible (minutos, horas o días)
+ */
+const getTimeAgo = (timestamp: number): string => {
+  const diffMs = Date.now() - timestamp;
+  const diffMinutes = Math.floor(diffMs / (1000 * 60));
+  const diffHours = Math.floor(diffMinutes / 60);
+  const diffDays = Math.floor(diffHours / 24);
+
+  if (diffMinutes < 60) return `Hace ${diffMinutes} min`;
+  if (diffHours < 24) return `Hace ${diffHours} ${diffHours === 1 ? 'hora' : 'horas'}`;
+  return `Hace ${diffDays} ${diffDays === 1 ? 'día' : 'días'}`;
+};
+
 export const ReportCard: React.FC<ReportCardProps> = ({ report, onPress }) => {
+  const { location: userLocation } = useLocation(false); // no pide permiso al montar
+
+  // ⏱️ Tiempo transcurrido
+  const timeAgo = report.reportedAtTimestamp
+    ? getTimeAgo(report.reportedAtTimestamp)
+    : report.timestamp ?? '—';
+
+  // 📍 Distancia dinámica (o fallback)
+  const distance =
+    userLocation && report.coordinates
+      ? formatDistance(
+          calculateDistance(
+            { latitude: userLocation.latitude, longitude: userLocation.longitude },
+            { latitude: report.coordinates.latitude, longitude: report.coordinates.longitude }
+          )
+        )
+      : report.distance ?? '—';
+
   return (
     <TouchableOpacity style={styles.card} onPress={onPress}>
       <View style={styles.header}>
@@ -19,14 +55,12 @@ export const ReportCard: React.FC<ReportCardProps> = ({ report, onPress }) => {
             <Text style={styles.title} numberOfLines={1}>
               {report.title}
             </Text>
-            {report.status === 'Urgente' && (
-              <StatusBadge status={report.status} />
-            )}
+            {report.status === 'Urgente' && <StatusBadge status={report.status} />}
           </View>
           <Text style={styles.category}>{report.category}</Text>
         </View>
       </View>
-      
+
       <View style={styles.details}>
         <View style={styles.detailRow}>
           <Text style={styles.detailIcon}>📍</Text>
@@ -34,14 +68,15 @@ export const ReportCard: React.FC<ReportCardProps> = ({ report, onPress }) => {
         </View>
         <View style={styles.detailRow}>
           <Text style={styles.detailIcon}>🕐</Text>
-          <Text style={styles.detailText}>{report.timestamp}</Text>
-          <Text style={styles.distance}>{report.distance}</Text>
+          <Text style={styles.detailText}>{timeAgo}</Text>
+          <Text style={styles.distance}>{`${distance}`}</Text>
         </View>
       </View>
     </TouchableOpacity>
   );
 };
 
+// 🎨 Estilos
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#FFF',
@@ -100,5 +135,5 @@ const styles = StyleSheet.create({
   distance: {
     fontSize: 12,
     color: '#2196F3',
-  }
+  },
 });

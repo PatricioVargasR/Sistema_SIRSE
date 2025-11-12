@@ -13,6 +13,7 @@ import { ReportService } from '@/services/reportServices';
 import { Report } from '../../data/mockReports';
 import { CategoryBadge } from '../../components/CategoryBadge';
 import { StatusBadge } from '../../components/StatusBadge';
+import { Share } from 'react-native';
 
 export default function ReportDetailScreen() {
   const router = useRouter();
@@ -36,6 +37,25 @@ export default function ReportDetailScreen() {
     } finally {
       setLoading(false);
     }
+  };
+
+  // 🕒 Función para formatear el timestamp a fecha y hora legible
+  const formatTimestamp = (timestamp: number | string | undefined) => {
+    if (!timestamp) return 'Fecha no disponible';
+    // Convertir a número si viene como string
+    const time = typeof timestamp === 'string' ? Number(timestamp) : timestamp;
+
+    // Si el timestamp está en segundos, convertir a milisegundos
+    const date = new Date(time < 10000000000 ? time * 1000 : time);
+
+    return date.toLocaleString('es-MX', {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false,
+    });
   };
 
   if (loading) {
@@ -68,7 +88,7 @@ export default function ReportDetailScreen() {
       </View>
 
       <ScrollView style={styles.content}>
-        {/* Image */}
+        {/* Imagen del reporte */}
         {report.image && (
           <Image 
             source={{ uri: report.image }} 
@@ -77,7 +97,7 @@ export default function ReportDetailScreen() {
           />
         )}
 
-        {/* Report Info */}
+        {/* Información general */}
         <View style={styles.infoCard}>
           <View style={styles.titleSection}>
             <CategoryBadge category={report.category} size="large" />
@@ -87,6 +107,7 @@ export default function ReportDetailScreen() {
             </View>
           </View>
 
+          {/* Detalles */}
           <View style={styles.detailSection}>
             <View style={styles.detailRow}>
               <Text style={styles.detailIcon}>📍</Text>
@@ -100,7 +121,7 @@ export default function ReportDetailScreen() {
               <Text style={styles.detailIcon}>🕐</Text>
               <View style={styles.detailContent}>
                 <Text style={styles.detailLabel}>Fecha y hora</Text>
-                <Text style={styles.detailValue}>{report.reportedAt}</Text>
+                <Text style={styles.detailValue}>{formatTimestamp(report.reportedAtTimestamp)}</Text>
               </View>
             </View>
           </View>
@@ -119,23 +140,31 @@ export default function ReportDetailScreen() {
           )}
         </View>
 
-        {/* Action Buttons */}
+        {/* Botones de acción */}
         <View style={styles.actions}>
-          <TouchableOpacity style={styles.shareButton}>
+          <TouchableOpacity 
+            style={styles.shareButton}
+            onPress={async () => {
+              try {
+                await Share.share({
+                  message: `🚨 Reporte: ${report.title}\n\n${report.description}\n\n📍 ${report.location}\n🕒 ${formatTimestamp(report.reportedAtTimestamp)}\n\nVer más en la app.`,
+                });
+              } catch (error) {
+                console.error('Error al compartir:', error);
+              }
+            }}
+          >
             <Text style={styles.shareIcon}>📤</Text>
             <Text style={styles.shareText}>Compartir</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.saveButton}>
-            <Text style={styles.saveIcon}>💾</Text>
-            <Text style={styles.saveText}>Guardar</Text>
-          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
   );
 }
 
+// 🎨 Estilos
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -300,5 +329,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#FFF',
     fontWeight: '600',
-  }
+  },
 });
