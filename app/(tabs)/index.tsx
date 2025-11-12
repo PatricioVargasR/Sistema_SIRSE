@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View,
   Text,
@@ -10,12 +10,10 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import MapView, { Marker, PROVIDER_GOOGLE, Region } from 'react-native-maps';
-import * as Location from 'expo-location';
 import { ReportService } from '@/services/reportServices';
 import { Report, CATEGORIES } from '../../data/mockReports';
-// import { CategoryBadge } from '../../components/CategoryBadge';
 import { DrawerMenu } from '@/components/DrawnerMenu';
-import { useRef } from 'react';
+import { useLocation } from '@/hooks/useLocation';
 import * as Linking from 'expo-linking';
 
 // TODO: Obtener solo los reportes de esa zona, más no filtrarlos
@@ -33,13 +31,21 @@ export default function MapScreen() {
   const [visibleReports, setVisibleReports] = useState<Report[]>([]);
   const [loading, setLoading] = useState(true);
   const [drawerVisible, setDrawerVisible] = useState(false);
-  const [userLocation, setUserLocation] = useState<LocationCoords | null>(null);
-  const [locationPermission, setLocationPermission] = useState(false);
   const [currentRegion, setCurrentRegion] = useState<Region | null>(null);
   const mapRef = useRef<MapView>(null);
 
+  // 🔥 Usar el hook de ubicación
+  const { location, hasPermission, loading: locationLoading, refreshLocation } = useLocation(true);
+
+  // Convertir location del hook a LocationCoords con deltas
+  const userLocation: LocationCoords | null = location ? {
+    latitude: location.latitude,
+    longitude: location.longitude,
+    latitudeDelta: location.latitudeDelta || 0.05,
+    longitudeDelta: location.longitudeDelta || 0.05,
+  } : null;
+
   useEffect(() => {
-    initializeLocation();
     loadReports();
   }, []);
 
@@ -50,100 +56,17 @@ export default function MapScreen() {
     }
   }, [currentRegion, allReports]);
 
-  // Inicializar ubicación
-  const initializeLocation = async () => {
-    try {
-      const { status } = await Location.requestForegroundPermissionsAsync();
-
-      if (status !== 'granted') {
-        Alert.alert(
-          'Permiso de ubicación',
-          'SIRSE necesita acceso a tu ubicación para mostrarte reportes cercanos.',
-          [{ text: 'OK' }]
-        );
-        setLocationPermission(false);
-        await getLastKnownLocation();
-        return;
-      }
-
-      setLocationPermission(true);
-      await getUserLocation();
-    } catch (error) {
-      console.error('Error initializing location:', error);
-      const defaultLocation = {
-        latitude: 20.0847,
-        longitude: -98.3686,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05,
-      };
-      setUserLocation(defaultLocation);
-      setCurrentRegion(defaultLocation);
+  // Establecer región inicial cuando la ubicación esté lista
+  useEffect(() => {
+    if (userLocation && !currentRegion) {
+      setCurrentRegion(userLocation);
     }
-  };
-
-  // Obtener última ubicación conocida
-  const getLastKnownLocation = async () => {
-    try {
-      const lastLocation = await Location.getLastKnownPositionAsync();
-
-      if (lastLocation) {
-        const coords: LocationCoords = {
-          latitude: lastLocation.coords.latitude,
-          longitude: lastLocation.coords.longitude,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05,
-        };
-        setUserLocation(coords);
-        setCurrentRegion(coords);
-      } else {
-        const defaultLocation = {
-          latitude: 20.0847,
-          longitude: -98.3686,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05,
-        };
-        setUserLocation(defaultLocation);
-        setCurrentRegion(defaultLocation);
-      }
-    } catch (error) {
-      console.error('Error getting last known location:', error);
-      const defaultLocation = {
-        latitude: 20.0847,
-        longitude: -98.3686,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05,
-      };
-      setUserLocation(defaultLocation);
-      setCurrentRegion(defaultLocation);
-    }
-  };
-
-  // Obtener ubicación actual del usuario
-  const getUserLocation = async () => {
-    try {
-      const location = await Location.getCurrentPositionAsync({
-        accuracy: Location.Accuracy.Balanced,
-      });
-
-      const coords: LocationCoords = {
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05,
-      };
-
-      setUserLocation(coords);
-      setCurrentRegion(coords);
-    } catch (error) {
-      console.error('Error getting location:', error);
-      await getLastKnownLocation();
-    }
-  };
+  }, [userLocation]);
 
   // Centrar mapa en ubicación del usuario
   const centerOnUser = async () => {
-    if (locationPermission) {
-      await getUserLocation();
+    if (hasPermission) {
+      await refreshLocation();
       // Animar el mapa a la nueva ubicación
       if (mapRef.current && userLocation) {
         mapRef.current.animateToRegion(userLocation, 1000);
@@ -238,7 +161,7 @@ export default function MapScreen() {
             style={styles.map}
             provider={PROVIDER_GOOGLE}
             initialRegion={userLocation}
-            showsUserLocation={locationPermission}
+            showsUserLocation={hasPermission}
             showsMyLocationButton={false}
             showsCompass={true}
             showsScale={true}

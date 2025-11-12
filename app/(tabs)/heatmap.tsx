@@ -10,18 +10,15 @@ import {
   TouchableOpacity, 
   ScrollView,
   Dimensions,
-  ActivityIndicator,
-  Alert 
+  ActivityIndicator
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import MapView, { Marker, Circle, PROVIDER_GOOGLE, Region } from 'react-native-maps';
-import * as Location from 'expo-location';
 import { Report, CATEGORIES } from '@/data/mockReports';
 import { ReportService } from '@/services/reportServices';
+import { useLocation } from '@/hooks/useLocation';
 
 // TODO: Obtener solo los reportes de esa zona, más no filtrarlos
-// TODO: Habilitar filtros
-// TODO: Corregir overlay
 const { width, height } = Dimensions.get('window');
 
 interface LocationCoords {
@@ -38,13 +35,18 @@ export default function HeatmapScreen() {
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [timeRange, setTimeRange] = useState<'24h' | '7d' | '30d'>('7d');
-  const [userLocation, setUserLocation] = useState<LocationCoords | null>(null);
-  const [locationPermission, setLocationPermission] = useState(false);
   const [currentRegion, setCurrentRegion] = useState<Region | null>(null);
 
-  useEffect(() => {
-    initializeLocation();
-  }, []);
+  // 🔥 Usar el hook de ubicación
+  const { location, hasPermission, loading: locationLoading } = useLocation(true);
+
+  // Convertir location del hook a LocationCoords con deltas
+  const userLocation: LocationCoords | null = location ? {
+    latitude: location.latitude,
+    longitude: location.longitude,
+    latitudeDelta: location.latitudeDelta || 0.05,
+    longitudeDelta: location.longitudeDelta || 0.05,
+  } : null;
 
   useEffect(() => {
     loadReports();
@@ -57,113 +59,56 @@ export default function HeatmapScreen() {
     }
   }, [currentRegion, allReports]);
 
-  // Inicializar ubicación
-  const initializeLocation = async () => {
-    try {
-      const { status } = await Location.requestForegroundPermissionsAsync();
-
-      if (status !== 'granted') {
-        Alert.alert(
-          'Permiso de ubicación',
-          'SIRSE necesita acceso a tu ubicación para mostrarte el mapa de calor.',
-          [{ text: 'OK' }]
-        );
-        setLocationPermission(false);
-        await getLastKnownLocation();
-        return;
-      }
-
-      setLocationPermission(true);
-      await getUserLocation();
-    } catch (error) {
-      console.error('Error initializing location:', error);
-      const defaultLocation = {
-        latitude: 20.0847,
-        longitude: -98.3686,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05,
-      };
-      setUserLocation(defaultLocation);
-      setCurrentRegion(defaultLocation);
+  // Establecer región inicial cuando la ubicación esté lista
+  useEffect(() => {
+    if (userLocation && !currentRegion) {
+      setCurrentRegion(userLocation);
     }
-  };
-
-  // Obtener última ubicación conocida
-  const getLastKnownLocation = async () => {
-    try {
-      const lastLocation = await Location.getLastKnownPositionAsync();
-
-      if (lastLocation) {
-        const coords: LocationCoords = {
-          latitude: lastLocation.coords.latitude,
-          longitude: lastLocation.coords.longitude,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05,
-        };
-        setUserLocation(coords);
-        setCurrentRegion(coords);
-      } else {
-        const defaultLocation = {
-          latitude: 20.0847,
-          longitude: -98.3686,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05,
-        };
-        setUserLocation(defaultLocation);
-        setCurrentRegion(defaultLocation);
-      }
-    } catch (error) {
-      console.error('Error getting last known location:', error);
-      const defaultLocation = {
-        latitude: 20.0847,
-        longitude: -98.3686,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05,
-      };
-      setUserLocation(defaultLocation);
-      setCurrentRegion(defaultLocation);
-    }
-  };
-
-  // Obtener ubicación actual del usuario
-  const getUserLocation = async () => {
-    try {
-      const location = await Location.getCurrentPositionAsync({
-        accuracy: Location.Accuracy.Balanced,
-      });
-
-      const coords: LocationCoords = {
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05,
-      };
-
-      setUserLocation(coords);
-      setCurrentRegion(coords);
-    } catch (error) {
-      console.error('Error getting location:', error);
-      await getLastKnownLocation();
-    }
-  };
+  }, [userLocation]);
 
   const loadReports = async () => {
     setLoading(true);
     try {
       const filters = selectedCategory ? { category: selectedCategory } : {};
       const data = await ReportService.getAllReports(filters);
-      setAllReports(data);
-      // Si ya hay una región, filtrar inmediatamente
+      
+      // ✅ Filtrar por rango de tiempo
+      const filteredByTime = filterByTimeRange(data, timeRange);
+      
+      setAllReports(filteredByTime);
+      
       if (currentRegion) {
-        filterVisibleReports(currentRegion, data);
+        filterVisibleReports(currentRegion, filteredByTime);
       } else {
-        setVisibleReports(data);
+        setVisibleReports(filteredByTime);
       }
     } catch (error) {
       console.error('Error loading reports:', error);
     } finally {
       setLoading(false);
     }
+  };
+
+  const filterByTimeRange = (reports: Report[], range: '24h' | '7d' | '30d'): Report[] => {
+    const now = Date.now();
+    let maxAge = 0;
+
+    switch (range) {
+      case '24h':
+        maxAge = 24 * 60 * 60 * 1000; // 24 horas en milisegundos
+        break;
+      case '7d':
+        maxAge = 7 * 24 * 60 * 60 * 1000; // 7 días
+        break;
+      case '30d':
+        maxAge = 30 * 24 * 60 * 60 * 1000; // 30 días
+        break;
+    }
+
+    return reports.filter(report => {
+      const reportAge = now - report.reportedAtTimestamp;
+      return reportAge <= maxAge;
+    });
   };
 
   // Filtrar reportes que están dentro de la región visible
@@ -359,7 +304,7 @@ export default function HeatmapScreen() {
                 style={styles.map}
                 provider={PROVIDER_GOOGLE}
                 initialRegion={userLocation}
-                showsUserLocation={locationPermission}
+                showsUserLocation={hasPermission}
                 showsMyLocationButton={false}
                 scrollEnabled={true}
                 zoomEnabled={true}
@@ -538,15 +483,6 @@ export default function HeatmapScreen() {
             </View>
           </View>
         </View>
-
-        {/* Botón de actualización */}
-        <TouchableOpacity 
-          style={styles.refreshButton}
-          onPress={loadReports}
-        >
-          <Text style={styles.refreshIcon}>🔄</Text>
-          <Text style={styles.refreshText}>Actualizar datos</Text>
-        </TouchableOpacity>
       </ScrollView>
     </View>
   );
@@ -842,7 +778,7 @@ const styles = StyleSheet.create({
   recommendationsCard: {
     backgroundColor: '#FFF3E0',
     marginHorizontal: 16,
-    marginBottom: 16,
+    marginBottom: 32,
     borderRadius: 12,
     padding: 16,
     borderLeftWidth: 4,
@@ -864,24 +800,5 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#424242',
     lineHeight: 20,
-  },
-  refreshButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#2196F3',
-    marginHorizontal: 16,
-    marginBottom: 32,
-    paddingVertical: 14,
-    borderRadius: 8,
-    gap: 8,
-  },
-  refreshIcon: {
-    fontSize: 20,
-  },
-  refreshText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#FFF',
   },
 });
