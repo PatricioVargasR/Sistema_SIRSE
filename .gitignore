@@ -44,5 +44,5 @@ app-example
 
 .env
 
-Panel-Administrador/venv
-Panel-Administrador/.env
+Panel_y_API/venv
+Panel_y_API/.env
