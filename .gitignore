@@ -1,48 +1,81 @@
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
-
-# dependencies
+# =========================
+# NODE
+# =========================
 node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# Expo
-.expo/
+# =========================
+# BUILD OUTPUTS
+# =========================
 dist/
-web-build/
-expo-env.d.ts
+build/
+out/
+.cache/
+.tmp/
 
-# Native
-.kotlin/
-*.orig.*
-*.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
+# =========================
+# ENV / SECRETOS
+# =========================
+.env
+.env.*
+*.env.local
 
-# Metro
-.metro-health-check*
+# =========================
+# FRAMEWORKS
+# =========================
+.next/
+.nuxt/
+.svelte-kit/
+.vite/
+.vercel/
+.netlify/
 
-# debug
-npm-debug.*
-yarn-debug.*
-yarn-error.*
-
-# macOS
-.DS_Store
-*.pem
-
-# local env files
-.env*.local
-
-# typescript
+# =========================
+# TYPECHECK
+# =========================
 *.tsbuildinfo
 
-app-example
+# =========================
+# COVERAGE
+# =========================
+coverage/
 
-# generated native folders
-/ios
-/android
+# =========================
+# LOGS
+# =========================
+*.log
 
-.env
+# =========================
+# IDEs
+# =========================
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
 
-Panel_y_API/venv
-Panel_y_API/.env
+# =========================
+# SISTEMA
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# CSS / BUILD TEMP
+# =========================
+*.map
+
+# =========================
+# CACHE / COMPILADOS
+# =========================
+.eslintcache
+.parcel-cache/
+
+# =========================
+# MISC
+# =========================
+*.tmp
+*.bak
+*.swp
