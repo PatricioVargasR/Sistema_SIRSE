@@ -4,8 +4,8 @@ from typing import List
 import os
 import uuid
 from pathlib import Path
-from .. import models, schemas
-from ..database import get_db
+import models, schemas
+from database import get_db
 
 router = APIRouter(prefix="/multimedia", tags=["Multimedia"])
 

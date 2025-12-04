@@ -7,25 +7,36 @@ from dotenv import load_dotenv
 # Cargar variables de entorno
 load_dotenv()
 
-# Obtener configuración de la base de datos
-DB_USER = os.getenv("DB_USER", "root")
-DB_PASS = os.getenv("DB_PASS", "")
-DB_HOST = os.getenv("DB_HOST", "localhost")
-DB_PORT = os.getenv("DB_PORT", "3306")
-DB_NAME = os.getenv("DB_NAME", "sirse")
+# # Obtener configuración de la base de datos
+# DB_USER = os.getenv("DB_USER", "root")
+# DB_PASS = os.getenv("DB_PASS", "")
+# DB_HOST = os.getenv("DB_HOST", "localhost")
+# DB_PORT = os.getenv("DB_PORT", "3306")
+# DB_NAME = os.getenv("DB_NAME", "sirse")
 
-# Validar que el puerto no sea None o 'None'
-if not DB_PORT or DB_PORT == 'None':
-    DB_PORT = "3306"
+# # Validar que el puerto no sea None o 'None'
+# if not DB_PORT or DB_PORT == 'None':
+#     DB_PORT = "3306"
+
+TURSO_DATABASE_URL = os.environ.get("TURSO_DATABASE_URL")
+TURSO_AUTH_TOKEN = os.environ.get("TURSO_AUTH_TOKEN")
 
 # Construir URL de conexión
-DATABASE_URL = f"mysql+mysqlconnector://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+# DATABASE_URL = f"mysql+mysqlconnector://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+# DATABASE_URL = "libsql://sirse-patriciovargasr.aws-us-east-1.turso.io"
 
 # Crear engine
+# engine = create_engine(
+#     DATABASE_URL,
+#     pool_pre_ping=True,  # Verifica que la conexión esté activa
+#     echo=True  # Muestra las consultas SQL en la consola (útil para debug)
+# )
+
 engine = create_engine(
-    DATABASE_URL,
-    pool_pre_ping=True,  # Verifica que la conexión esté activa
-    echo=True  # Muestra las consultas SQL en la consola (útil para debug)
+    f"sqlite+{TURSO_DATABASE_URL}?secure=true",
+    connect_args={
+        "auth_token": TURSO_AUTH_TOKEN,
+    },
 )
 
 # Crear sesión

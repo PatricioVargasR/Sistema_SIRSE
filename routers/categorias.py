@@ -2,9 +2,9 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from typing import List
 
-from ..database import get_db
-from .. import models, schemas
-from .auth import obtener_usuario_actual_db  # ← CORRECTO
+from database import get_db
+import models, schemas
+from routers.auth import obtener_usuario_actual_db  # ← CORRECTO
 
 router = APIRouter(prefix="/api/categorias", tags=["Categorías"])
 

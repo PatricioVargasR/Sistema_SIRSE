@@ -4,9 +4,9 @@ from typing import List
 from datetime import datetime
 import random
 import string
-from .. import models, schemas
-from ..database import get_db
-from ..auth import obtener_usuario_actual_db  # <-- IMPORTAR
+import models, schemas
+from database import get_db
+from routers.auth import obtener_usuario_actual_db  # <-- IMPORTAR
 
 router = APIRouter(prefix="/reportes", tags=["Reportes"])
 

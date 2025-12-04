@@ -3,9 +3,9 @@ from sqlalchemy.orm import Session
 from sqlalchemy import func, extract
 from typing import List, Dict
 from datetime import datetime, timedelta
-from .. import models
-from ..database import get_db
-from .auth import obtener_usuario_actual_db
+import models
+from database import get_db
+from routers.auth import obtener_usuario_actual_db
 
 router = APIRouter(prefix="/estadisticas", tags=["Estadísticas"])
 

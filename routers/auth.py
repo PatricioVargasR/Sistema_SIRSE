@@ -7,8 +7,8 @@ from sqlalchemy.orm import Session
 import os
 from dotenv import load_dotenv
 
-from ..database import get_db
-from .. import models, schemas
+from database import get_db
+import models, schemas
 
 load_dotenv()
 

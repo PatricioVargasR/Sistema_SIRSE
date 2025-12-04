@@ -3,8 +3,8 @@ Script para poblar la base de datos con datos iniciales
 Ejecutar con: python -m sirse_api.seed_data
 """
 from sqlalchemy.orm import Session
-from .database import SessionLocal, engine
-from .models import Categoria, Estado, Base
+from database import SessionLocal, engine
+from models import Categoria, Estado, Base
 
 def init_db():
     # Crear todas las tablas
