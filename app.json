@@ -62,7 +62,8 @@
           "locationAlwaysAndWhenInUsePermission": "Permitir a SIRSE acceder a tu ubicación para mostrarte reportes cercanos.",
           "locationWhenInUsePermission": "SIRSE necesita tu ubicación para mostrarte incidentes cercanos."
         }
-      ]
+      ],
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": true,

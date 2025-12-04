@@ -1,3 +1,4 @@
+// components/DrawerMenu.tsx
 import React from 'react';
 import { 
   View, 
@@ -22,7 +23,6 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
   const router = useRouter();
   const slideAnim = React.useRef(new Animated.Value(-DRAWER_WIDTH)).current;
 
-// TODO: Corregir animación
   React.useEffect(() => {
     Animated.timing(slideAnim, {
       toValue: visible ? 0 : -DRAWER_WIDTH,
@@ -41,6 +41,11 @@ export const DrawerMenu: React.FC<DrawerMenuProps> = ({ visible, onClose }) => {
       icon: '🔥', 
       label: 'Mapa de calor', 
       route: '/heatmap' 
+    },
+    { 
+      icon: '🔔', 
+      label: 'Notificaciones', 
+      route: '/notifications-settings' 
     },
     { 
       icon: '📞', 

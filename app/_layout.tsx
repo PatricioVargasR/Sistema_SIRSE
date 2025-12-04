@@ -2,8 +2,11 @@ import { Stack } from 'expo-router';
 import { useEffect } from 'react';
 import * as Linking from 'expo-linking';
 import { useRouter } from 'expo-router';
+import { useReportPolling } from '@/hooks/useReportPolling';
 
 export default function RootLayout() {
+
+  useReportPolling();
   const router = useRouter();
 
   useEffect(() => {
