@@ -1,119 +1,115 @@
-# 🖥️ SIRSE Panel Web - Administración Municipal
+# 📱 SIRSE Mobile - App Ciudadana de Reportes
 
 <div align="center">
-  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
-  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
-  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
-  <img src="https://img.shields.io/badge/Chart.js-FF6384?style=for-the-badge&logo=chartdotjs&logoColor=white" />
+  <img src="https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+  <img src="https://img.shields.io/badge/Expo-000020?style=for-the-badge&logo=expo&logoColor=white" />
+  <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" />
+  <img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
 </div>
 
 <br>
 
 <div align="center">
   <h3>🛡️ Sistema Integral de Reportes de Seguridad y Emergencias</h3>
-  <p>Panel de administración web para Tulancingo de Bravo, Hidalgo</p>
+  <p>Aplicación móvil ciudadana para Tulancingo de Bravo, Hidalgo</p>
 </div>
 
 ## 📋 Descripción
 
-**SIRSE Panel Web** es la interfaz administrativa del Sistema Integral de Reportes de Seguridad y Emergencias, diseñada para que los funcionarios municipales de **Tulancingo de Bravo, Hidalgo** gestionen, supervisen y den seguimiento a los reportes ciudadanos de manera eficiente.
+**SIRSE Mobile** es la aplicación móvil ciudadana del Sistema Integral de Reportes de Seguridad y Emergencias, desarrollada para los habitantes de **Tulancingo de Bravo, Hidalgo**. 
 
-El panel proporciona una visión integral del sistema mediante dashboards interactivos, estadísticas en tiempo real, gestión de reportes y administración de usuarios.
+La app permite visualizar en tiempo real los incidentes de seguridad y servicios urbanos reportados por la comunidad, ayudando a los ciudadanos a tomar decisiones informadas sobre rutas seguras y manteniéndolos al tanto de la situación en su colonia.
 
 ### 🎯 Propósito
 
-Facilitar a los administradores municipales una herramienta profesional para:
-- 📊 Visualizar estadísticas generales del sistema
-- 📋 Gestionar el ciclo de vida de los reportes
-- ✅ Validar y resolver incidentes
-- 👥 Administrar usuarios del sistema
-- 📈 Analizar tendencias y métricas clave
-- 🎯 Tomar decisiones basadas en datos
+Proporcionar a los ciudadanos una herramienta confiable y dinámica para:
+- 📍 Visualizar reportes georeferenciados en un mapa interactivo
+- 🔥 Identificar zonas de riesgo mediante mapas de calor
+- 🔔 Recibir notificaciones sobre incidentes cercanos
+- 👥 Fomentar la colaboración comunitaria
+- 🚨 Tomar decisiones preventivas informadas
 
-> **Nota**: Este panel es para **uso exclusivo de personal autorizado** del H. Ayuntamiento de Tulancingo. Requiere autenticación mediante credenciales municipales.
+> **Nota**: Los reportes se generan mediante el **Chatbot de WhatsApp** de SIRSE. Esta aplicación móvil es **exclusivamente de consulta y visualización**.
 
 ## ✨ Características Principales
 
-### 🔐 Sistema de Autenticación
-- Login seguro con email y contraseña
-- Validación de credenciales contra API backend
-- Gestión de sesión con tokens JWT
-- Cierre de sesión seguro
-- Protección de rutas privadas
+### 🗺️ Mapa Interactivo
+- Visualización de todos los reportes activos con georreferencias precisas
+- Marcadores categorizados por tipo de incidente
+- Grid de navegación intuitivo
+- Ubicación del usuario en tiempo real
+- Controles de zoom y navegación
 
-### 📊 Dashboard Principal
-- **Cards de métricas clave**:
-  - Total de reportes
-  - Reportes atendidos
-  - Reportes pendientes
-  - Falsos positivos
-- **Gráficos interactivos**:
-  - Reportes por mes (línea temporal)
-  - Reportes por categoría (gráfico de dona)
-- Actualización automática cada 30 segundos
-- Visualización responsiva
+### 🔥 Mapas de Calor
+- Identificación visual de zonas con mayor concentración de incidentes
+- Análisis temporal de patrones de riesgo
+- Actualización en tiempo real
 
 ### 📋 Feed de Reportes
-- Lista completa de reportes ciudadanos
-- **Filtros dinámicos**:
-  - Por categoría (Luminarias, Servicios, etc.)
-  - Por estado (Pendiente, En proceso, Resuelto)
-  - Búsqueda por texto (nombre, folio, descripción)
-- **Acciones disponibles**:
-  - ✓ Validar reporte
-  - ✅ Marcar como resuelto
-  - 🗑️ Eliminar reporte
-- Vista de cards con información completa
-- Badges de categoría y estado
-- Metadatos: fecha, hora, ubicación
+- Lista completa de incidentes reportados
+- Filtros por categoría y estado
+- Búsqueda por cercanía ("Cerca de ti")
+- Vista de reportes recientes
+- Acceso a detalles completos de cada reporte
 
-### 📈 Estadísticas Avanzadas
-- **Métricas clave**:
-  - Tasa de resolución (%)
-  - Tiempo promedio de respuesta
-  - Satisfacción ciudadana
-  - Reportes del mes actual
-- **Gráficos analíticos**:
-  - Tendencias por categoría (multi-línea)
-  - Tiempo de respuesta promedio
-  - Tasa de resolución semanal
-  - Rendimiento por departamento
-- Análisis temporal y comparativo
+### 🔔 Notificaciones Push
+- Alertas inmediatas sobre incidentes cercanos
+- Notificaciones personalizables por categoría
+- Avisos de cambio de estado en reportes guardados
 
-### 👥 Gestión de Usuarios
-- Listado completo de administradores
-- **Operaciones CRUD**:
-  - ➕ Crear nuevos usuarios
-  - ✏️ Editar información de usuarios
-  - 🗑️ Eliminar usuarios
-- **Perfil actual**:
-  - Visualización de datos del usuario logueado
-  - Cambio de contraseña seguro
-- Roles y permisos por departamento
-- Estadísticas de usuarios activos
+### 🔒 Privacidad y Seguridad
+- Los reportes públicos son completamente anónimos
+- No requiere registro ni datos personales para consultar
+- Suscripción opcional para notificaciones (solo email)
+
+## 📊 Categorías de Reportes
+
+La app muestra reportes organizados en las siguientes categorías:
+
+| Categoría | Icono | Color | Descripción |
+|-----------|-------|-------|-------------|
+| **Luminarias** | 💡 | Amarillo (`#FFC107`) | Lámparas de alumbrado público apagadas o dañadas |
+| **Limpieza** | 🗑️ | Verde (`#4CAF50`) | Acumulación de basura en vía pública |
+| **Podas y Cortes** | ⚠️ | Azul (`#2196F3`) | Árboles caídos u obstruyendo vías |
+| **Baches/Semáforos** | 🚧 | Naranja (`#FF5722`) | Infraestructura vial dañada |
+| **Obras Públicas** | 🚧 | Naranja (`#FF5722`) | Problemas en servicios municipales |
 
 ## 📁 Estructura del Proyecto
-
 ```
-panel-web/
-├── index.html                    # 🔐 Pantalla de login
-├── dashboard.html                # 📊 Dashboard principal
-├── reportes.html                 # 📋 Feed de reportes
-├── estadisticas.html             # 📈 Estadísticas detalladas
-├── usuarios.html                 # 👥 Gestión de usuarios
+sirse-app/
+├── app/                          # Navegación con Expo Router
+│   ├── (tabs)/                   # Navegación por pestañas
+│   │   ├── index.tsx             # 🗺️ Pantalla del mapa interactivo
+│   │   ├── explore.tsx           # 📋 Feed de reportes
+│   │   └── _layout.tsx           # Configuración de tabs
+│   ├── report/
+│   │   └── [id].tsx              # 📄 Detalle individual del reporte
+│   ├── contact.tsx               # 📞 Información de contacto
+│   ├── modal.tsx                 # ➕ Modal (reservado para futuro)
+│   └── _layout.tsx               # Layout raíz de la app
 │
-├── css/
-│   └── styles.css                # 🎨 Estilos globales del panel
+├── components/                   # Componentes reutilizables
+│   ├── CategoryBadge.tsx         # 🏷️ Badge visual de categoría
+│   ├── StatusBadge.tsx           # 🔴 Badge de estado (Urgente/En proceso)
+│   ├── ReportCard.tsx            # 📇 Tarjeta de reporte para listas
+│   └── DrawerMenu.tsx            # ☰ Menú lateral de navegación
 │
-├── js/
-│   ├── auth.js                   # 🔐 Autenticación y sesión
-│   ├── dashboard.js              # 📊 Lógica del dashboard
-│   ├── reportes.js               # 📋 Gestión de reportes
-│   ├── estadisticas.js           # 📈 Lógica de estadísticas
-│   └── usuarios.js               # 👥 Gestión de usuarios
+├── data/                         # Datos y definiciones
+│   └── mockReports.ts            # 📊 Datos estáticos (temporal)
 │
-├── .gitignore                    # 📝 Archivos ignorados por Git
-└── README.md                     # 📖 Este archivo
+├── services/                     # Capa de servicios
+│   └── reportService.ts          # 🔌 Servicio de API de reportes
+│
+├── assets/                       # Recursos multimedia
+│   ├── images/                   # Imágenes e iconos
+│   └── fonts/                    # Fuentes personalizadas
+│
+├── constants/                    # Constantes globales
+│   └── Colors.ts                 # Paleta de colores
+│
+├── app.json                      # Configuración de Expo
+├── package.json                  # Dependencias del proyecto
+└── tsconfig.json                 # Configuración de TypeScript
 ```
 
 ## 🚀 Instalación y Configuración
@@ -121,549 +117,371 @@ panel-web/
 ### Requisitos Previos
 
 #### Hardware Mínimo
-- **Servidor**:
-  - 2 GB RAM mínimo
-  - Procesador Dual-core
-  - 500 MB de espacio en disco
-  - Conexión a Internet estable
+- **Dispositivo móvil**:
+  - Android 8.0 o superior
+  - 2 GB RAM o superior
+  - Procesador Quad-core o superior
+  - GPS y conexión a Internet
 
-#### Software Requerido
-- Navegador web moderno:
-  - Google Chrome 90+ (recomendado)
-  - Firefox 88+
-  - Microsoft Edge 90+
-  - Safari 14+
-- Servidor web (Apache, Nginx, o similar)
-- Node.js 18+ (opcional, para servidor de desarrollo)
+#### Software de Desarrollo
+- Node.js 18+ y npm/yarn
+- Git
+- Android Studio (para emulador) o dispositivo físico
+- Expo Go app (para testing en dispositivo real)
 
 ### Pasos de Instalación
 
 #### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/tu-usuario/sirse-panel-web.git
-cd sirse-panel-web
+git clone https://github.com/tu-usuario/sirse-mobile.git
+cd sirse-mobile
 ```
 
-#### 2. Configurar la URL de la API
-
-Edita el archivo `js/auth.js` y `index.html`:
-```javascript
-// Cambiar la URL de la API
-const API_URL = 'https://api-sirse.vercel.app/api';
-// Por: const API_URL = 'https://tu-api.tulancingo.gob.mx/api';
-```
-
-#### 3. Desplegar en servidor web
-
-**Opción A: Servidor local con Python**
+#### 2. Instalar dependencias
 ```bash
-# Python 3
-python -m http.server 8080
-
-# Acceder a: http://localhost:8080
+npm install
+# o
+yarn install
 ```
 
-**Opción B: Servidor local con Node.js**
+#### 3. Instalar Expo Router y dependencias adicionales
 ```bash
-# Instalar http-server globalmente
-npm install -g http-server
-
-# Iniciar servidor
-http-server -p 8080
-
-# Acceder a: http://localhost:8080
+npx expo install expo-router react-native-safe-area-context react-native-screens expo-linking expo-constants expo-status-bar
 ```
 
-**Opción C: Apache/Nginx**
+#### 4. Configurar variables de entorno
+
+Crea un archivo `.env` en la raíz del proyecto:
+```env
+# API Backend
+API_BASE_URL=https://api.sirse.tulancingo.gob.mx
+
+# Google Maps API (si se usa)
+GOOGLE_MAPS_API_KEY=tu_api_key_aqui
+
+# Entorno
+ENVIRONMENT=development
+```
+
+#### 5. Iniciar el servidor de desarrollo
 ```bash
-# Copiar archivos al directorio del servidor
-sudo cp -r * /var/www/html/sirse-panel/
-
-# Configurar permisos
-sudo chown -R www-data:www-data /var/www/html/sirse-panel
-sudo chmod -R 755 /var/www/html/sirse-panel
+npx expo start
 ```
 
-#### 4. Configurar HTTPS (Producción)
+#### 6. Ejecutar en dispositivo
 
-Para producción, siempre usa HTTPS:
+**Opción A: Dispositivo físico con Expo Go**
+1. Instala **Expo Go** desde Google Play Store
+2. Escanea el código QR que aparece en la terminal
+3. La app se cargará automáticamente
+
+**Opción B: Emulador Android**
 ```bash
-# Con Certbot (Let's Encrypt)
-sudo certbot --nginx -d panel.sirse.tulancingo.gob.mx
+# En la terminal de Expo, presiona 'a'
+# O ejecuta directamente:
+npx expo start --android
 ```
 
-#### 5. Verificar conexión con API
-
-Abre las DevTools del navegador (F12) y verifica:
-```javascript
-// En la consola del navegador
-fetch('https://api-sirse.vercel.app/api/')
-  .then(r => r.json())
-  .then(d => console.log(d));
+**Opción C: Emulador iOS (solo macOS)**
+```bash
+# En la terminal de Expo, presiona 'i'
+# O ejecuta directamente:
+npx expo start --ios
 ```
 
-## 🎨 Pantallas del Panel
+## 🎨 Pantallas de la Aplicación
 
-### 1️⃣ Login (`index.html`)
+### 1️⃣ Pantalla de Mapa (`app/(tabs)/index.tsx`)
 
 **Funcionalidades:**
-- Formulario de autenticación
-- Toggle para mostrar/ocultar contraseña
-- Validación de credenciales
-- Manejo de errores
-- Redirección automática si ya hay sesión activa
-- Diseño responsivo y moderno
-
-```javascript
-// Ejemplo de estructura del login
-{
-  "email": "admin@tulancingo.gob.mx",
-  "contraseña": "tu_contraseña_segura"
-}
+- Mapa interactivo con grid de navegación
+- Marcadores de reportes por categoría
+- Indicador de ubicación del usuario
+- Botones de control (filtros, centrar ubicación)
+- Leyenda de categorías
+- Botón FAB para futuras funcionalidades
+```typescript
+// Ejemplo de uso del mapa
+<View style={styles.mapContainer}>
+  {/* Grid del mapa */}
+  <View style={styles.mapGrid}>
+    {/* Marcadores de reportes */}
+    {reports.map((report) => (
+      <CategoryBadge 
+        key={report.id}
+        category={report.category}
+        onPress={() => navigateToReport(report.id)}
+      />
+    ))}
+  </View>
+</View>
 ```
 
-### 2️⃣ Dashboard (`dashboard.html`)
+### 2️⃣ Feed de Reportes (`app/(tabs)/explore.tsx`)
 
-**Componentes:**
-- **Sidebar**: Menú de navegación principal
-- **Header**: Barra de búsqueda y perfil de usuario
-- **Cards de métricas**: 4 indicadores clave
-- **Gráficos**:
-  - Reportes por mes (Chart.js - Line)
-  - Reportes por categoría (Chart.js - Doughnut)
-
-```javascript
-// Estructura de métricas
-{
-  "total_reportes": 150,
-  "reportes_resueltos": 120,
-  "reportes_pendientes": 30,
-  "falsos_positivos": 0
-}
+**Funcionalidades:**
+- Lista scrollable de reportes
+- Filtros: Todos | Recientes | Cerca de ti | En proceso
+- Tarjetas informativas con:
+  - Categoría visual
+  - Título del incidente
+  - Ubicación
+  - Tiempo transcurrido
+  - Distancia desde ubicación actual
+  - Badge de estado (si es urgente)
+```typescript
+<ReportCard
+  report={report}
+  onPress={() => router.push(`/report/${report.id}`)}
+/>
 ```
 
-### 3️⃣ Feed de Reportes (`reportes.html`)
+### 3️⃣ Detalle de Reporte (`app/report/[id].tsx`)
 
-**Componentes:**
-- **Filtros superiores**:
-  - Select de categoría
-  - Select de estado
-  - Barra de búsqueda en tiempo real
-- **Lista de reportes**: Cards individuales con:
-  - Imagen (placeholder)
-  - Badges de categoría y estado
-  - Información del reportante
-  - Descripción del incidente
-  - Metadatos (fecha, hora, ubicación)
-  - Botones de acción (Validar, Resolver, Eliminar)
+**Funcionalidades:**
+- Imagen del incidente (si está disponible)
+- Información completa del reporte
+- Estado actual (Urgente/En proceso/Pendiente)
+- Fecha y hora del reporte
+- Ubicación precisa
+- Descripción detallada
+- Botones de acción:
+  - 📤 Compartir reporte
+  - 💾 Guardar para seguimiento
 
-### 4️⃣ Estadísticas (`estadisticas.html`)
+### 4️⃣ Menú Lateral (`components/DrawerMenu.tsx`)
 
-**Componentes:**
-- **4 Cards de métricas avanzadas**:
-  - Tasa de resolución
-  - Tiempo promedio de respuesta
-  - Satisfacción ciudadana
-  - Reportes del mes
-- **4 Gráficos interactivos**:
-  - Tendencias por categoría (multi-línea)
-  - Tiempo de respuesta (línea con fill)
-  - Tasa de resolución semanal (barras)
-  - Rendimiento por departamento (barras horizontales)
-
-### 5️⃣ Gestión de Usuarios (`usuarios.html`)
-
-**Componentes:**
-- **Perfil actual**: Card con información del usuario logueado
-- **Tabla de usuarios**:
-  - Avatar con iniciales
-  - Nombre y email
-  - Rol y departamento
-  - Fecha de ingreso
-  - Estado (Activo)
-  - Acciones (Editar, Eliminar)
-- **Botones de acción**:
-  - ➕ Añadir usuario
-  - 🔒 Cambiar contraseña
-- **Cards de estadísticas**:
-  - Total de usuarios
-  - Usuarios activos
-  - Total de departamentos
+**Opciones de navegación:**
+- 🏠 Inicio (Mapa)
+- 📋 Feed de Reportes
+- 📞 Contacto
+- ℹ️ Información de la app
+- 📱 Footer con versión
 
 ## 🔌 Integración con API Backend
 
-### Configuración de la API
-
-El panel se conecta a la API REST de SIRSE:
-```javascript
-const API_URL = 'https://api-sirse.vercel.app/api';
-```
-
-### Endpoints Utilizados
-
-#### Autenticación
-| Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| `POST` | `/auth/login` | Iniciar sesión |
-| `GET` | `/usuarios/me` | Obtener usuario actual |
-
-#### Reportes
-| Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| `GET` | `/reportes/` | Lista de reportes (con filtros opcionales) |
-| `GET` | `/reportes/{id}` | Detalle de un reporte |
-| `PUT` | `/reportes/{id}` | Actualizar reporte (cambiar estado) |
-| `DELETE` | `/reportes/{id}` | Eliminar reporte |
-
-#### Estadísticas
-| Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| `GET` | `/estadisticas/generales` | Métricas generales del sistema |
-| `GET` | `/estadisticas/por-mes-chart` | Datos para gráfico mensual |
-| `GET` | `/estadisticas/por-categoria-chart` | Datos para gráfico de categorías |
-
-#### Usuarios
-| Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| `GET` | `/usuarios/` | Lista de usuarios |
-| `POST` | `/usuarios/` | Crear nuevo usuario |
-| `PUT` | `/usuarios/{id}` | Actualizar usuario |
-| `DELETE` | `/usuarios/{id}` | Eliminar usuario |
-| `PUT` | `/usuarios/me/cambiar-contraseña` | Cambiar contraseña |
-
-#### Catálogos
-| Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| `GET` | `/categorias/` | Lista de categorías |
-| `GET` | `/estados/` | Lista de estados de reportes |
-
-### Autenticación con JWT
-
-```javascript
-// Almacenar token después del login
-localStorage.setItem('token', data.access_token);
-localStorage.setItem('user', JSON.stringify(data.usuario));
-
-// Enviar token en cada request
-headers: {
-  'Authorization': `Bearer ${token}`,
-  'Content-Type': 'application/json'
-}
-
-// Manejo de token expirado (401)
-if (response.status === 401) {
-  localStorage.removeItem('token');
-  localStorage.removeItem('user');
-  window.location.href = '/index.html';
-}
-```
-
-### Formato de Datos
-
-#### Usuario
+### Estructura del Servicio
 ```typescript
-interface Usuario {
-  id: number;
-  nombre: string;
-  email: string;
-  telefono?: string;
-  departamento?: string;
-  rol: string;
-  created_at: string;
-}
+// services/reportService.ts
+
+export const ReportService = {
+  // Obtener todos los reportes
+  getAllReports: async (filters?: {
+    category?: string;
+    status?: string;
+  }): Promise<Report[]> => {
+    // TODO: Reemplazar con llamada real a API
+    const response = await fetch(
+      `${API_BASE_URL}/api/reports?${queryParams}`
+    );
+    return response.json();
+  },
+
+  // Obtener reporte por ID
+  getReportById: async (id: string): Promise<Report> => {
+    const response = await fetch(
+      `${API_BASE_URL}/api/reports/${id}`
+    );
+    return response.json();
+  }
+};
 ```
 
-#### Reporte
+### Endpoints Esperados
+
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| `GET` | `/api/reports` | Lista de reportes con filtros opcionales |
+| `GET` | `/api/reports/:id` | Detalle de un reporte específico |
+| `GET` | `/api/reports/nearby` | Reportes cercanos a coordenadas |
+| `GET` | `/api/reports/heatmap` | Datos para mapa de calor |
+
+### Formato de Datos (Report Interface)
 ```typescript
-interface Reporte {
-  id_reporte: number;
-  folio: string;
-  nombre: string;
-  apellido_paterno: string;
-  descripcion: string;
-  direccion: string;
-  created_at: string;
-  categoria: {
-    id_categoria: number;
-    nombre: string;
+interface Report {
+  id: string;
+  title: string;
+  category: 'Luminarias' | 'Limpieza' | 'Podas y Cortes' | 
+            'Baches/Semáforos' | 'Obras Públicas';
+  location: string;
+  timestamp: string;          // "Hace 15 min"
+  distance: string;           // "0.5 km de distancia"
+  status: 'Urgente' | 'En proceso' | 'Pendiente';
+  coordinates: {
+    latitude: number;
+    longitude: number;
   };
-  estado: {
-    id_estado: number;
-    nombre: string;
-  };
+  description: string;
+  image: string | null;       // URL de imagen
+  reportedAt: string;         // "15 Oct 2025 - 14:35"
 }
 ```
 
 ## 🎨 Guía de Estilos
 
 ### Paleta de Colores
-```css
-/* Colores principales */
-:root {
-  --primary: #003366;        /* Azul marino */
-  --secondary: #00d084;      /* Verde institucional */
-  --background: #f5f5f5;     /* Gris claro */
-  --white: #ffffff;
-  
-  /* Textos */
-  --text-primary: #333333;
-  --text-secondary: #666666;
-  
-  /* Categorías */
-  --luminarias: #ffd700;     /* Amarillo */
-  --servicios: #ff8c00;      /* Naranja */
-  --obras: #003366;          /* Azul */
-  --parques: #00d084;        /* Verde */
-  
-  /* Estados */
-  --pendiente: #ffc107;      /* Amarillo */
-  --proceso: #2196f3;        /* Azul */
-  --resuelto: #4caf50;       /* Verde */
-  --rechazado: #ff4444;      /* Rojo */
-}
+```javascript
+// constants/Colors.ts
+export const Colors = {
+  primary: '#2196F3',        // Azul principal
+  background: '#F5F5F5',     // Gris claro de fondo
+  white: '#FFFFFF',
+  text: {
+    primary: '#212121',
+    secondary: '#757575',
+  },
+  categories: {
+    luminarias: '#FFC107',
+    limpieza: '#4CAF50',
+    podas: '#2196F3',
+    baches: '#FF5722',
+  },
+  status: {
+    urgente: '#FF5252',
+    proceso: '#FF9800',
+    pendiente: '#9E9E9E',
+  }
+};
 ```
 
 ### Tipografía
-```css
-/* Fuente principal */
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-/* Tamaños */
-.page-title { font-size: 28px; font-weight: 600; }
-.card-title { font-size: 16px; font-weight: 600; }
-.body-text { font-size: 14px; font-weight: 400; }
-.small-text { font-size: 12px; font-weight: 400; }
+- **Títulos**: 18-24px, peso 600-700
+- **Texto normal**: 14-16px, peso 400-500
+- **Texto pequeño**: 12-13px, peso 400
+
+## 📦 Build y Deployment
+
+### Generar APK de Desarrollo
+```bash
+# Configurar EAS Build
+npm install -g eas-cli
+eas login
+eas build:configure
+
+# Crear build de desarrollo
+eas build --profile development --platform android
 ```
 
-### Componentes Reutilizables
-
-#### Badges
-```html
-<!-- Badge de categoría -->
-<span class="badge yellow">Luminarias</span>
-<span class="badge orange">Servicios Municipales</span>
-<span class="badge green">Parques y Jardines</span>
-<span class="badge blue">Obras Públicas</span>
-
-<!-- Badge de estado -->
-<span class="badge yellow">Pendiente</span>
-<span class="badge blue">En proceso</span>
-<span class="badge green">Resuelto</span>
+### Generar APK de Producción
+```bash
+# Build para Google Play Store
+eas build --profile production --platform android
 ```
 
-#### Botones
-```html
-<!-- Botón primario -->
-<button class="btn-primary">Acción Principal</button>
-
-<!-- Botón de validar -->
-<button class="btn-validate">Validar</button>
-
-<!-- Botón de resolver -->
-<button class="btn-resolve">✓ Resolver</button>
-
-<!-- Botón de eliminar -->
-<button class="btn-delete">🗑 Eliminar</button>
-```
-
-## 📊 Chart.js - Configuración de Gráficos
-
-### Gráfico de Línea (Reportes por Mes)
-```javascript
-new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: ["Ene", "Feb", "Mar", "Abr", "May", "Jun"],
-    datasets: [{
-      label: 'Reportes por mes',
-      data: [5, 8, 12, 6, 9, 15],
-      borderColor: '#003366',
-      backgroundColor: 'rgba(0, 51, 102, 0.1)',
-      borderWidth: 3,
-      fill: true,
-      tension: 0.4
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: true,
-    scales: {
-      y: { beginAtZero: true }
+### Configuración de Build (`eas.json`)
+```json
+{
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "production": {
+      "android": {
+        "buildType": "apk"
+      }
     }
   }
-});
+}
 ```
 
-### Gráfico de Dona (Categorías)
-```javascript
-new Chart(ctx, {
-  type: 'doughnut',
-  data: {
-    labels: ["Luminarias", "Servicios", "Obras", "Parques"],
-    datasets: [{
-      data: [8, 5, 3, 4],
-      backgroundColor: ['#ffd700', '#ff8c00', '#003366', '#00d084'],
-      borderWidth: 2,
-      borderColor: '#ffffff'
-    }]
-  },
-  options: {
-    responsive: true,
-    maintainAspectRatio: true,
-    plugins: {
-      legend: { position: 'bottom' }
-    },
-    cutout: '50%'
-  }
-});
+## 🧪 Testing
+```bash
+# Ejecutar tests unitarios
+npm test
+
+# Tests con cobertura
+npm run test:coverage
+
+# Tests de componentes
+npm run test:components
 ```
 
-## 🔒 Seguridad
+## 📱 Requisitos de Usuario Final
 
-### Mejores Prácticas Implementadas
-- ✅ **Autenticación JWT**: Tokens seguros con expiración
-- ✅ **HTTPS obligatorio**: Comunicación cifrada
-- ✅ **Validación de sesión**: Verificación en cada request
-- ✅ **Cierre de sesión**: Limpieza de tokens
-- ✅ **Protección de rutas**: Redirección si no hay sesión
-- ✅ **Manejo de errores**: Sin exposición de información sensible
-- ✅ **XSS Protection**: Sanitización de inputs
+### Hardware Mínimo del Dispositivo
+- **Sistema Operativo**: Android 8.0 (Oreo) o superior
+- **RAM**: 2 GB mínimo (recomendado 3 GB)
+- **Procesador**: Quad-core 1.3 GHz o superior
+- **Almacenamiento libre**: 100 MB
+- **GPS**: Requerido para funciones de ubicación
+- **Cámara**: No requerida (la app solo consulta)
+- **Internet**: Conexión 3G/4G/5G o WiFi (5 Mbps mínimo)
 
-### Recomendaciones Adicionales
-```javascript
-// Configurar Content Security Policy
-<meta http-equiv="Content-Security-Policy" 
-      content="default-src 'self'; 
-               script-src 'self' https://cdn.jsdelivr.net; 
-               style-src 'self' 'unsafe-inline';">
+### Permisos Requeridos
+- 📍 **Ubicación**: Para mostrar reportes cercanos
+- 🌐 **Internet**: Para cargar datos y mapas
+- 🔔 **Notificaciones**: Para recibir alertas (opcional)
 
-// Implementar rate limiting en la API
-// Usar CORS apropiado
-// Implementar refresh tokens
-// Agregar 2FA para administradores principales
-```
+## 🔒 Privacidad y Seguridad
+
+### Cumplimiento Legal
+✅ **Ley Federal de Protección de Datos Personales (LFPDPPP)**  
+✅ **Ley General de Protección de Datos (LGPDPPSO)**  
+✅ **Derechos ARCO** (Acceso, Rectificación, Cancelación, Oposición)
+
+### Datos Recopilados
+La aplicación móvil recopila **mínimos datos**:
+- ✅ Ubicación del dispositivo (solo cuando se usa la app)
+- ✅ Email (opcional, solo para notificaciones)
+- ❌ **NO** recopila datos personales identificables
+- ❌ **NO** requiere registro obligatorio
+
+### Seguridad Implementada
+- 🔒 Comunicación cifrada (HTTPS/TLS)
+- 🔒 Anonimización de reportes públicos
+- 🔒 Sin almacenamiento local de datos sensibles
+- 🔒 Tokens de sesión seguros
 
 ## 🐛 Solución de Problemas
 
-### Error: "No se puede conectar a la API"
-```javascript
-// Verificar URL de la API
-console.log('API URL:', API_URL);
-
-// Verificar CORS en la API
-// El backend debe incluir:
-res.headers['Access-Control-Allow-Origin'] = '*';
-res.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE';
-res.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization';
-```
-
-### Error: "Token inválido o expirado"
-```javascript
-// Limpiar localStorage y volver a iniciar sesión
-localStorage.clear();
-window.location.href = '/index.html';
-```
-
-### Gráficos no se renderizan
-```javascript
-// Verificar que Chart.js esté cargado
-if (typeof Chart === 'undefined') {
-  console.error('Chart.js no está cargado');
-}
-
-// Verificar que el canvas exista
-const ctx = document.getElementById('chart-id');
-if (!ctx) {
-  console.error('Canvas no encontrado');
-}
-
-// Destruir gráfico anterior antes de crear uno nuevo
-if (window.chartInstance) {
-  window.chartInstance.destroy();
-}
-```
-
-### Problema con el sidebar en móviles
-```css
-/* Agregar media queries */
-@media (max-width: 768px) {
-  .sidebar {
-    width: 200px;
-    position: fixed;
-    left: -200px;
-    transition: left 0.3s;
-  }
-  
-  .sidebar.active {
-    left: 0;
-  }
-}
-```
-
-## 📱 Responsive Design
-
-El panel está optimizado para:
-- 💻 **Desktop**: 1920x1080 (óptimo)
-- 💻 **Laptop**: 1366x768
-- 📱 **Tablet**: 768x1024 (landscape)
-- 📱 **Mobile**: 375x667 (funcionalidad limitada)
-
-### Breakpoints
-```css
-/* Tablet */
-@media (max-width: 1024px) {
-  .charts-grid { grid-template-columns: 1fr; }
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  .sidebar { width: 200px; }
-  .stats-grid { grid-template-columns: 1fr 1fr; }
-}
-```
-
-## 🚀 Despliegue en Producción
-
-### Checklist Pre-Despliegue
-- [ ] Cambiar `API_URL` a la URL de producción
-- [ ] Habilitar HTTPS en el servidor
-- [ ] Configurar CORS en el backend
-- [ ] Minificar CSS y JS (opcional)
-- [ ] Configurar backups automáticos
-- [ ] Implementar logging de errores
-- [ ] Configurar monitoreo (uptime)
-- [ ] Documentar credenciales de acceso
-
-### Hosting Recomendado
-- **Vercel**: Despliegue automático con Git
-- **Netlify**: Similar a Vercel
-- **GitHub Pages**: Para proyectos públicos
-- **Servidor propio**: Apache/Nginx con SSL
-
-### Comando de Despliegue (Vercel)
+### Error: "Unable to connect to development server"
 ```bash
-# Instalar Vercel CLI
-npm i -g vercel
+# Solución 1: Reiniciar servidor
+npx expo start -c
 
-# Deploy
-vercel --prod
+# Solución 2: Verificar conexión
+# Asegúrate de que el móvil y PC estén en la misma red WiFi
+
+# Solución 3: Usar túnel
+npx expo start --tunnel
+```
+
+### Error: "Module not found"
+```bash
+# Limpiar caché e reinstalar
+rm -rf node_modules
+npm install
+npx expo start -c
+```
+
+### La app se cierra inesperadamente
+```bash
+# Ver logs en tiempo real
+npx expo start
+# Luego presiona 'j' para abrir debugger
+
+# O conecta logcat para Android
+adb logcat *:S ReactNative:V ReactNativeJS:V
 ```
 
 ## 📞 Soporte y Contacto
 
 ### Reportar Problemas
-- **GitHub Issues**: [github.com/tu-usuario/sirse-panel-web/issues](https://github.com/tu-usuario/sirse-panel-web/issues)
-- **Email Técnico**: soporte@sirse.tulancingo.gob.mx
+- **GitHub Issues**: [github.com/tu-usuario/sirse-mobile/issues](https://github.com/tu-usuario/sirse-mobile/issues)
+- **Email**: soporte@sirse.tulancingo.gob.mx
 
 ### Contacto Institucional
+- **Teléfono Emergencias**: 911
 - **Oficina Municipal**: (775) 123-4567
 - **Sitio Web**: [www.tulancingo.gob.mx](https://www.tulancingo.gob.mx)
-- **WhatsApp SIRSE**: Para reportes ciudadanos
 
-### Capacitación
-Para solicitar capacitación o manuales de usuario, contactar a:
-- **Jefatura de Seguimiento**
-- Lic. Luis Armando Granillo Islas
+### Para Ciudadanos
+Si eres ciudadano y necesitas **reportar un incidente**, usa el **Chatbot de WhatsApp** de SIRSE. Esta app es solo de consulta.
 
 ## 👥 Créditos
 
@@ -678,28 +496,18 @@ H. Ayuntamiento de Tulancingo de Bravo, Hidalgo
 - Lic. Luis Armando Granillo Islas - Jefatura de Seguimiento
 - Lic. Héctor Alfaro Mellado - Primera Oficialía de Partes
 
-**Tecnologías Utilizadas:**
-- HTML5 / CSS3 / JavaScript (Vanilla)
-- Chart.js v4.4.0
-- Font Awesome (iconos)
-- Google Fonts
-
 ## 📄 Licencia
 
 Este proyecto es propiedad del **H. Ayuntamiento de Tulancingo de Bravo, Hidalgo**.
 
 Desarrollado bajo licencia académica por la Universidad Tecnológica de Tulancingo.
 
-**Uso Restringido**: Este software es para uso exclusivo del personal autorizado del H. Ayuntamiento de Tulancingo de Bravo, Hidalgo.
-
 ---
 
 <div align="center">
-  <strong>Hecho con ❤️ para el gobierno municipal de Tulancingo</strong>
+  <strong>Hecho con ❤️ para la ciudadanía de Tulancingo</strong>
   <br>
-  <sub>© 2025 SIRSE Panel Web - v1.0.0</sub>
+  <sub>© 2025 SIRSE Mobile - v1.0.0</sub>
   <br><br>
   <img src="https://img.shields.io/badge/Made%20in-Tulancingo%2C%20Hidalgo-blue?style=flat-square" />
-  <img src="https://img.shields.io/badge/Status-Production-success?style=flat-square" />
-  <img src="https://img.shields.io/badge/License-Proprietary-red?style=flat-square" />
 </div>
